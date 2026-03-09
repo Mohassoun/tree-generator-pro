@@ -1,0 +1,37 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "command": "${workspaceFolder}\\node-v20.11.1-win-x64\\node.exe",
+      "args": [
+        "${workspaceFolder}\\node_modules\\typescript\\bin\\tsc",
+        "-watch",
+        "-p",
+        "./"
+      ],
+      "group": "build",
+      "presentation": {
+        "panel": "shared",
+        "reveal": "never"
+      },
+      "problemMatcher": "$tsc-watch",
+      "isBackground": true,
+      "label": "tsc: watch",
+      "detail": "node .../tsc -watch -p ./"
+    },
+    {
+      "type": "shell",
+      "command": "${workspaceFolder}\\node-v20.11.1-win-x64\\node.exe",
+      "args": [
+        "${workspaceFolder}\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "./"
+      ],
+      "group": "build",
+      "problemMatcher": [],
+      "label": "tsc: compile",
+      "detail": "node .../tsc -p ./"
+    }
+  ]
+}
