@@ -31,7 +31,7 @@ Right-click on a folder or open the Command Palette and run one of the commands:
 * `Tree Generator: Generate From Workspace Root`
 * `Tree Generator: Generate To Clipboard`
 
-![Step 1](./step_1.webp)
+![Step 1](./images/step_1.webp)
 
 ---
 
@@ -45,7 +45,7 @@ You can also:
 * Copy file names only
 * Expand or collapse folders
 
-![Step 2](./step_2.webp)
+![Step 2](./images/step_2.webp)
 
 ---
 
