@@ -2,44 +2,97 @@
 
 A VS Code extension that generates a professional file tree from your workspace or selection.
 
+---
+
 ## Author
 
-- Programmer: Mohamad Hassoun
-- Portfolio: https://portfoliohassoun.web.app/
-- Email: mohamadhassoun21698@gmail.com
+* **Programmer:** Mohamad Hassoun
+* **Portfolio:** https://portfoliohassoun.web.app/
+* **Email:** [mohamadhassoun21698@gmail.com](mailto:mohamadhassoun21698@gmail.com)
+
+---
 
 ## Features
 
-- Generates a structured tree representation of files and folders.
-- Supports webview and text output modes.
-- Includes copy-to-clipboard workflows.
+* Generates a structured tree representation of files and folders.
+* Supports **WebView** and **text output** modes.
+* Includes **copy-to-clipboard** workflows.
+* Works from **workspace root** or **selected folder**.
+
+---
 
 ## Usage
 
-1. Open a workspace in VS Code.
-2. Run one of these commands from Command Palette:
-   - `Tree Generator: Generate From Selection`
-   - `Tree Generator: Generate From Workspace Root`
-   - `Tree Generator: Generate To Clipboard`
-3. View the result in webview or text mode based on extension settings.
+### Step 1 — Generate Tree
+
+Right-click on a folder or open the Command Palette and run one of the commands:
+
+* `Tree Generator: Generate From Selection`
+* `Tree Generator: Generate From Workspace Root`
+* `Tree Generator: Generate To Clipboard`
+
+![Step 1](./step_1.webp)
+
+---
+
+### Step 2 — View the Generated Tree
+
+The extension will generate a structured tree view of your files and folders.
+
+You can also:
+
+* Copy the tree
+* Copy file names only
+* Expand or collapse folders
+
+![Step 2](./step_2.webp)
+
+---
 
 ## Development
 
 ### Prerequisites
 
-- Node.js
-- npm
+* Node.js
+* npm
 
 ### Setup
 
 1. Clone the repository.
-2. Run `npm install` to install dependencies.
-3. Run `npm run compile` to build the extension.
-4. Press F5 to launch the extension in debug mode.
+2. Run:
 
-If `npm` is not available globally on your machine, this workspace includes a portable Node.js runtime under `node-v20.11.1-win-x64/`.
-In VS Code, pressing F5 uses the local runtime via `.vscode/tasks.json`.
+```
+npm install
+```
 
-### Testing
+3. Build the extension:
 
-Run `npm run lint` for static checks. The project currently has no automated test suite.
+```
+npm run compile
+```
+
+4. Press **F5** in VS Code to launch the extension in debug mode.
+
+If `npm` is not available globally on your machine, this workspace includes a portable Node.js runtime under:
+
+```
+node-v20.11.1-win-x64/
+```
+
+Pressing **F5** in VS Code will use the local runtime via:
+
+```
+.vscode/tasks.json
+```
+
+---
+
+## Testing
+
+Run the following command for static checks:
+
+```
+npm run lint
+```
+
+Currently, the project does not include an automated test suite.
