@@ -18,12 +18,14 @@ A VS Code extension that generates a professional file tree from your workspace 
 * Supports **WebView** and **text output** modes.
 * Includes **copy-to-clipboard** workflows.
 * Works from **workspace root** or **selected folder**.
+* Adds a custom **Explorer Tree** view in the Activity Bar.
+* Lets you copy the full path of any file or folder from the custom tree.
 
 ---
 
 ## Usage
 
-### Step 1 — Generate Tree
+### Step 1 - Generate Tree
 
 Right-click on a folder or open the Command Palette and run one of the commands:
 
@@ -35,7 +37,7 @@ Right-click on a folder or open the Command Palette and run one of the commands:
 
 ---
 
-### Step 2 — View the Generated Tree
+### Step 2 - View the Generated Tree
 
 The extension will generate a structured tree view of your files and folders.
 
@@ -46,6 +48,31 @@ You can also:
 * Expand or collapse folders
 
 ![Step 2](./images/step_2.webp)
+
+---
+
+### Step 3 - Open Explorer Tree
+
+Open the new **Explorer Tree** from the **Activity Bar**.
+
+If the default VS Code Explorer is open, you can switch to it with:
+
+* **Windows / Linux:** `Ctrl+Shift+E`
+* **macOS:** `Cmd+Shift+E`
+
+After that, click the **Explorer Tree** icon in the Activity Bar and use the custom tree view from this extension.
+
+![Step 3](./images/step_3.webp)
+
+---
+
+### Step 4 - Copy Path
+
+Inside **Explorer Tree**, hover over any file or folder and click the **Copy Path** button.
+
+This copies the full path to your clipboard.
+
+![Step 4](./images/step_4.webp)
 
 ---
 
@@ -61,13 +88,13 @@ You can also:
 1. Clone the repository.
 2. Run:
 
-```
+```bash
 npm install
 ```
 
 3. Build the extension:
 
-```
+```bash
 npm run compile
 ```
 
@@ -75,13 +102,13 @@ npm run compile
 
 If `npm` is not available globally on your machine, this workspace includes a portable Node.js runtime under:
 
-```
+```text
 node-v20.11.1-win-x64/
 ```
 
 Pressing **F5** in VS Code will use the local runtime via:
 
-```
+```text
 .vscode/tasks.json
 ```
 
@@ -91,7 +118,7 @@ Pressing **F5** in VS Code will use the local runtime via:
 
 Run the following command for static checks:
 
-```
+```bash
 npm run lint
 ```
 

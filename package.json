@@ -2,7 +2,7 @@
   "name": "file-branch",
   "displayName": "Tree Generator Pro",
   "description": "Generate professional file trees from Explorer selection or workspace root.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "publisher": "mohamad--hassoun",
   "author": {
     "name": "Mohamad Hassoun",
@@ -35,7 +35,10 @@
   "activationEvents": [
     "onCommand:extension.generateFromSelection",
     "onCommand:extension.generateFromRoot",
-    "onCommand:extension.generateToClipboard"
+    "onCommand:extension.generateToClipboard",
+    "onCommand:extension.refreshTreeExplorer",
+    "onCommand:extension.copyPath",
+    "onView:explorerTreeView"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -50,9 +53,37 @@
       },
       {
         "command": "extension.generateToClipboard",
-        "title": "Tree Generator: Generate To Clipboard"
+        "title": "Tree Generator: Generate To Clipboard",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "extension.refreshTreeExplorer",
+        "title": "Explorer Tree: Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "extension.copyPath",
+        "title": "Copy Path",
+        "icon": "$(copy)"
       }
     ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "explorerTree",
+          "title": "Explorer Tree",
+          "icon": "images/explorer-tree.svg"
+        }
+      ]
+    },
+    "views": {
+      "explorerTree": [
+        {
+          "id": "explorerTreeView",
+          "name": "Explorer Tree"
+        }
+      ]
+    },
     "menus": {
       "explorer/context": [
         {
@@ -64,6 +95,35 @@
           "command": "extension.generateToClipboard",
           "when": "explorerViewletVisible && resourceScheme == file",
           "group": "navigation@101"
+        },
+        {
+          "command": "extension.copyPath",
+          "when": "explorerViewletVisible && resourceScheme == file && !explorerResourceIsFolder",
+          "group": "navigation@102"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "extension.generateToClipboard",
+          "when": "view == workbench.explorer.fileView",
+          "group": "navigation"
+        },
+        {
+          "command": "extension.refreshTreeExplorer",
+          "when": "view == explorerTreeView",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "extension.copyPath",
+          "when": "view == explorerTreeView && viewItem == treeNode",
+          "group": "inline"
+        },
+        {
+          "command": "extension.copyPath",
+          "when": "view == explorerTreeView && viewItem == treeNode",
+          "group": "navigation"
         }
       ]
     },
