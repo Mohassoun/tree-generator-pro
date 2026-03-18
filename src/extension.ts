@@ -2,11 +2,20 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
 import { buildTree, SortMode, TreeSettings, toTextTree } from './treeGenerator';
+import { CustomTreeItem, TreeDataProvider } from './treeDataProvider';
 import { showTreeWebview } from './treeWebview';
 
 const CONFIG_SECTION = 'treeGenerator';
 
 export function activate(context: vscode.ExtensionContext) {
+    const treeDataProvider = new TreeDataProvider();
+    const treeView = vscode.window.createTreeView('explorerTreeView', {
+        treeDataProvider,
+        showCollapseAll: true
+    });
+
+    context.subscriptions.push(treeView);
+
     context.subscriptions.push(
         vscode.commands.registerCommand('extension.generateFromSelection', async (resource?: vscode.Uri) => {
             const rootPath = resolveTreeRootFromSelection(resource);
@@ -34,6 +43,57 @@ export function activate(context: vscode.ExtensionContext) {
                 return;
             }
             await generateAndPresentTree(rootPath, true);
+        })
+    );
+
+    context.subscriptions.push(
+        vscode.commands.registerCommand('extension.refreshTreeExplorer', () => {
+            treeDataProvider.refresh();
+        })
+    );
+
+    context.subscriptions.push(
+        vscode.commands.registerCommand('extension.copyPath', async (item?: unknown) => {
+            const targetPath = getTargetPath(item);
+            if (!targetPath) {
+                vscode.window.showWarningMessage('No path is available to copy.');
+                return;
+            }
+
+            await vscode.env.clipboard.writeText(targetPath);
+            vscode.window.showInformationMessage('Full path copied to clipboard.');
+        })
+    );
+
+    context.subscriptions.push(
+        vscode.workspace.onDidChangeConfiguration((event) => {
+            if (event.affectsConfiguration(CONFIG_SECTION)) {
+                treeDataProvider.refresh();
+            }
+        })
+    );
+
+    context.subscriptions.push(
+        vscode.workspace.onDidChangeWorkspaceFolders(() => {
+            treeDataProvider.refresh();
+        })
+    );
+
+    context.subscriptions.push(
+        vscode.workspace.onDidCreateFiles(() => {
+            treeDataProvider.refresh();
+        })
+    );
+
+    context.subscriptions.push(
+        vscode.workspace.onDidDeleteFiles(() => {
+            treeDataProvider.refresh();
+        })
+    );
+
+    context.subscriptions.push(
+        vscode.workspace.onDidRenameFiles(() => {
+            treeDataProvider.refresh();
         })
     );
 }
@@ -114,4 +174,24 @@ function getSettings(): TreeSettings {
 
 function clamp(value: number, min: number, max: number): number {
     return Math.min(max, Math.max(min, value));
+}
+
+function getTargetPath(item?: unknown): string | undefined {
+    if (item instanceof vscode.Uri) {
+        return item.fsPath;
+    }
+
+    if (!item || typeof item !== 'object') {
+        return undefined;
+    }
+
+    if (item instanceof CustomTreeItem) {
+        return item.fullPath;
+    }
+
+    if ('fullPath' in item && typeof item.fullPath === 'string') {
+        return item.fullPath;
+    }
+
+    return undefined;
 }
